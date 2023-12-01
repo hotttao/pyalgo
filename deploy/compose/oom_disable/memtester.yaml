@@ -1,0 +1,32 @@
+version: "3"
+services:
+  test_a:
+    container_name: mem_oom_kill_disable
+    image: "memtester:1.0.1"
+    # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+    command: ["mbw", "500", "-b", "26214400"]
+    oom_kill_disable: true
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+  test_b:
+    container_name: mem_oom_kill_enable
+    image: "memtester:1.0.1"
+    # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+    command: ["mbw", "500", "-b", "26214400"]
+    # oom_kill_disable: true
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+  test_c:
+    container_name: mem_oom_kill_disable_no_limit
+    image: "memtester:1.0.1"
+    # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+    command: ["mbw", "500", "-b", "262144000"]
+    # oom_kill_disable: true
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 50M

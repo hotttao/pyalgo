@@ -1,0 +1,59 @@
+version: "3"
+services:
+  test_a:
+    container_name: mem_50
+    image: "memtester:1.0.1"
+    # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+    command: ["./malloc.out", "52428800", "1000000"]
+    # oom_kill_disable: true
+    oom_score_adj: 1000
+    # deploy:
+    #  resources:
+    #    limits:
+    #      memory: 51M
+  test_b:
+    container_name: mem_100
+    image: "memtester:1.0.1"
+    # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+    command: ["./malloc.out", "104857600", "1000000"]
+    # oom_kill_disable: true
+    oom_score_adj: 998
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 101M
+  # test_d:
+  #   container_name: mem_101
+  #   image: "memtester:1.0.1"
+  #   command: ["./malloc.out", "104857600", "1000000"]
+  #   # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+  #   # command: ["mbw", "500", "-b", "262144000"]
+  #   # oom_kill_disable: true
+  #   oom_score_adj: 997
+  #   # deploy:
+  #   #   resources:
+  #   #     limits:
+  #   #       memory: 101M
+  # test_e:
+  #   container_name: mem_102
+  #   image: "memtester:1.0.1"
+  #   command: ["./malloc.out", "104857600", "1000000"]
+  #   # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+  #   # command: ["mbw", "500", "-b", "262144000"]
+  #   # oom_kill_disable: true
+  #   oom_score_adj: 996
+  #   # deploy:
+  #   #   resources:
+  #   #     limits:
+  #   #       memory: 101M
+  test_c:
+    container_name: mem_oom_kill_disable_no_limit
+    image: "memtester:1.0.1"
+    command: ["./malloc.out", "104857600", "1000000"]
+    # command: ["python3.8", "-c", "import time;a=bytes(1024*1024*1024);print(a);time.sleep(1000000)"]
+    # command: ["mbw", "500", "-b", "262144000"]
+    oom_kill_disable: true
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 50M
